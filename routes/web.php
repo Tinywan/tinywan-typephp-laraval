@@ -27,5 +27,6 @@ Route::prefix('user')->group(function (){
     Route::get('/index', 'UserController@index');
     Route::get('/detail/{id}', 'UserController@detail');
     Route::get('/export', [UserController::class, 'export']);
+    Route::get('/queue', [UserController::class, 'queue']);
 });
 
