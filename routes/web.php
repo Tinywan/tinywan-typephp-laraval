@@ -10,6 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -24,4 +26,6 @@ Route::get('/', function () {
 Route::prefix('user')->group(function (){
     Route::get('/index', 'UserController@index');
     Route::get('/detail/{id}', 'UserController@detail');
+    Route::get('/export', [UserController::class, 'export']);
 });
+
