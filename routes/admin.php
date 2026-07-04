@@ -16,5 +16,7 @@ Route::prefix('v1')
     Route::prefix('shop')->group(function () {
         Route::get('index', [ShopController::class, 'index']);
         Route::get('detail/{id}', [ShopController::class, 'detail']);
+        Route::post('student', [ShopController::class, 'student']);
+        Route::post('teacher', [ShopController::class, 'teacher']);
     });
 });
