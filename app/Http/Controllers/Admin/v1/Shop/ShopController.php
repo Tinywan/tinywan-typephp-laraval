@@ -7,6 +7,7 @@ use App\Http\Requests\UserRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 
 class ShopController extends AdminController
 {
@@ -21,6 +22,8 @@ class ShopController extends AdminController
      */
     public function detail($id)
     {
+        Log::info('Showing the user profile for user: ', ['id' => $id]);
+        Log::info('User failed to login.', ['id' => $id]);
         return response_json('这是商品详情', 0, ['id' => $id]);
     }
 
@@ -44,6 +47,9 @@ class ShopController extends AdminController
      */
     public function teacher(UserRequest $request)
     {
+        Log::debug('An informational message. debug ');
+        Log::info('An informational message. info ');
+        Log::error('An informational message.  error');
         $validated = $request->validated();
         return response_json('老师验证器', 0, $validated);
     }
