@@ -13,9 +13,11 @@ class UserController extends Controller
         return json_encode(['code' => 0, 'msg' => 'success']);
     }
 
-    public function detail($id)
+    public function detail(int $id,string $name)
     {
         var_dump($id);
+        var_dump($name);
+        dump($name);
         dump($id);
         return json_encode(['code' => 0, 'msg' => 'success', 'id' => $id]);
     }

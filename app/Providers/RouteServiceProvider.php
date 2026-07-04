@@ -31,7 +31,12 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         // 全局约束
-        Route::pattern('id', '[0-9]+');
+        Route::patterns([
+            'id' => '[0-9]+',
+            'user_id' => '[0-9]+',
+            'shop_id' => '[0-9]+',
+            'name' => '\w+',
+        ]);
         parent::boot();
     }
 
