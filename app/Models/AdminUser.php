@@ -54,9 +54,13 @@ class AdminUser extends Authenticatable implements JWTSubject
      *
      * @return array
      */
-    public function getJWTCustomClaims()
+    public function getJWTCustomClaims(): array
     {
-        return [];
+        return [
+            'guard' => 'admin',
+            'is_super' => (int) $this->is_super,
+            'status' => (int) $this->status,
+        ];
     }
 
     public function isSuper()
