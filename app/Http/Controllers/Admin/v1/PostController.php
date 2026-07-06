@@ -16,6 +16,8 @@ class PostController extends AdminController
      */
     public function update(int $id)
     {
+//        dump(\request()->get('x-site-domain'));
+//        dump(\request()->get('x-site-code'));
         $post = Post::findOrFail($id);
         $this->authorize('update', $post);
 
