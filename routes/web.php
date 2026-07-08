@@ -28,6 +28,7 @@ Route::prefix('user')->group(function (){
     Route::get('/detail/{id}/{name}', 'UserController@detail')->where('name', '\w+');
     Route::get('/export', [UserController::class, 'export']);
     Route::get('/queue', [UserController::class, 'queue']);
+    Route::get('/event', [UserController::class, 'event']);
 });
 
 Route::resource('photos', 'PhotoController');

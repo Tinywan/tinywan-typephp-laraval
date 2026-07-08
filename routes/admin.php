@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\UserLoginEvent;
 use App\Http\Controllers\Admin\v1\ActiveController;
 use App\Http\Controllers\Admin\v1\PostController;
 use App\Http\Controllers\Admin\v1\Shop\ShopController;
@@ -14,6 +15,8 @@ Route::post('login', function (Request $request) {
     if (!$token) {
         return response_json('账号或密码错误', 401, [], 401);
     }
+
+    event(new UserLoginEvent(auth('admin')->user()));
 
     return response_json('登录成功', 0, [
         'access_token' => $token,

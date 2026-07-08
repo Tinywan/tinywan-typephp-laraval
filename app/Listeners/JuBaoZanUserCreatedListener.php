@@ -2,10 +2,12 @@
 
 namespace App\Listeners;
 
+use App\Events\UserCreatedEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Log;
 
-class HelloListener
+class JuBaoZanUserCreatedListener
 {
     /**
      * Create the event listener.
@@ -20,11 +22,12 @@ class HelloListener
     /**
      * Handle the event.
      *
-     * @param  object  $event
+     * @param UserCreatedEvent $event
      * @return void
      */
-    public function handle($event)
+    public function handle(UserCreatedEvent  $event)
     {
-        //
+        $user = $event->user;
+        Log::info('[聚宝赞用户同步] 监听用户创建事件', ['user' => $user]);
     }
 }

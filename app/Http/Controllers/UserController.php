@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserCreatedEvent;
 use App\Exports\UsersExport;
 use App\Jobs\HelloJob;
+use App\User;
 use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
@@ -32,5 +34,14 @@ class UserController extends Controller
         $userId = 10086;
         HelloJob::dispatch($userId)->delay(30);
         return json_encode(['code' => 0, 'msg' => 'success']);
+    }
+
+    public function event()
+    {
+        $user = User::findOrFail(1);
+        // 用户登录事件
+//        event(new \App\Events\UserCreatedEvent($user));
+        event(new \App\Events\UserLoginEvent($user));
+        return json_encode(['code' => 0, 'msg' => 'event success']);
     }
 }

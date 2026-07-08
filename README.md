@@ -53,6 +53,405 @@ server {
 }
 ```
 
+## 事件与监听器使用说明
+
+Laravel 事件机制适合把“业务动作已经发生”和“动作发生后需要做什么”拆开。比如用户创建成功后，创建用户的代码只负责触发 `UserCreatedEvent`，发送通知、同步第三方平台、写业务日志等后续动作交给监听器处理。
+
+这样做的好处是控制器或服务层不用堆积大量后置逻辑，后续新增一个动作时，只需要新增监听器并注册到事件上。
+
+### 1. 使用场景
+
+事件适合表达已经发生的业务事实，例如：
+
+```text
+用户创建成功
+用户登录成功
+用户退出登录
+订单支付成功
+商品库存变化
+```
+
+监听器适合处理事件发生后的动作，例如：
+
+```text
+发送通知
+同步第三方系统
+记录业务日志
+发放优惠券
+清理缓存
+```
+
+当前项目已经有以下事件和监听器：
+
+```text
+app/Events/UserCreatedEvent.php
+app/Events/UserLoginEvent.php
+app/Events/UserLogoutEvent.php
+
+app/Listeners/SendUserNotificationListener.php
+app/Listeners/JuBaoZanUserCreatedListener.php
+app/Listeners/UserEventSubscriber.php
+```
+
+### 2. 定义事件
+
+事件类放在 `app/Events` 目录。事件对象主要负责携带上下文数据，例如用户对象、订单对象、操作人 ID 等。
+
+用户创建事件示例：
+
+```php
+namespace App\Events;
+
+use App\User;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
+
+class UserCreatedEvent
+{
+    use Dispatchable, SerializesModels;
+
+    /**
+     * @var User
+     */
+    public $user;
+
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
+}
+```
+
+重点：
+
+```text
+Dispatchable      允许使用 UserCreatedEvent::dispatch($user) 触发事件
+SerializesModels  队列化事件或监听器时，帮助序列化 Eloquent 模型
+public $user      监听器中可以通过 $event->user 获取用户对象
+```
+
+### 3. 定义监听器
+
+监听器放在 `app/Listeners` 目录，通过 `handle()` 方法接收事件对象。
+
+发送用户通知监听器示例：
+
+```php
+namespace App\Listeners;
+
+use App\Events\UserCreatedEvent;
+use Illuminate\Support\Facades\Log;
+
+class SendUserNotificationListener
+{
+    public function handle(UserCreatedEvent $event)
+    {
+        $user = $event->user;
+
+        Log::info('[发送用户通知] 监听用户创建事件', [
+            'user' => $user,
+        ]);
+    }
+}
+```
+
+同步第三方平台监听器示例：
+
+```php
+namespace App\Listeners;
+
+use App\Events\UserCreatedEvent;
+use Illuminate\Support\Facades\Log;
+
+class JuBaoZanUserCreatedListener
+{
+    public function handle(UserCreatedEvent $event)
+    {
+        $user = $event->user;
+
+        Log::info('[聚宝赞用户同步] 监听用户创建事件', [
+            'user' => $user,
+        ]);
+    }
+}
+```
+
+一个事件可以对应多个监听器。每个监听器只做一类事情，后续维护会更清晰。
+
+### 4. 注册事件和监听器
+
+事件和监听器的绑定关系配置在 `app/Providers/EventServiceProvider.php`。
+
+当前项目中的用户创建事件注册方式：
+
+```php
+use App\Events\UserCreatedEvent;
+use App\Listeners\JuBaoZanUserCreatedListener;
+use App\Listeners\SendUserNotificationListener;
+
+protected $listen = [
+    UserCreatedEvent::class => [
+        SendUserNotificationListener::class,
+        JuBaoZanUserCreatedListener::class,
+    ],
+];
+```
+
+含义是：只要触发 `UserCreatedEvent`，Laravel 会依次执行数组中的监听器。
+
+```text
+UserCreatedEvent
+    -> SendUserNotificationListener::handle()
+    -> JuBaoZanUserCreatedListener::handle()
+```
+
+如果要新增一个用户创建后的动作，例如写审计日志，可以新增监听器后注册进去：
+
+```php
+protected $listen = [
+    UserCreatedEvent::class => [
+        SendUserNotificationListener::class,
+        JuBaoZanUserCreatedListener::class,
+        WriteUserCreatedAuditLogListener::class,
+    ],
+];
+```
+
+### 5. 触发事件
+
+在业务动作完成后触发事件。常见写法是使用 `event()` 辅助函数：
+
+```php
+use App\Events\UserCreatedEvent;
+use App\User;
+
+$user = User::create($data);
+
+event(new UserCreatedEvent($user));
+```
+
+也可以使用事件类自带的 `dispatch()` 方法：
+
+```php
+UserCreatedEvent::dispatch($user);
+```
+
+两种写法效果一致。触发后，Laravel 会根据 `EventServiceProvider::$listen` 找到对应监听器并执行。
+
+当前项目的登录事件在 `routes/admin.php` 中触发：
+
+```php
+use App\Events\UserLoginEvent;
+
+Route::post('login', function (Request $request) {
+    $credentials = $request->only('email', 'password');
+
+    $token = auth('admin')->attempt($credentials);
+
+    if (!$token) {
+        return response_json('账号或密码错误', 401, [], 401);
+    }
+
+    event(new UserLoginEvent(auth('admin')->user()));
+
+    return response_json('登录成功', 0, [
+        'access_token' => $token,
+        'token_type' => 'bearer',
+        'expires_in' => Auth::guard('admin')->factory()->getTTL() * 60,
+    ]);
+});
+```
+
+### 6. 使用事件订阅者
+
+如果多个事件属于同一类业务，可以使用订阅者集中管理。当前项目使用 `UserEventSubscriber` 统一订阅用户登录和用户退出事件。
+
+订阅者示例：
+
+```php
+namespace App\Listeners;
+
+use App\Events\UserLoginEvent;
+use App\Events\UserLogoutEvent;
+use Illuminate\Events\Dispatcher;
+use Illuminate\Support\Facades\Log;
+
+class UserEventSubscriber
+{
+    public function handleUserLogin($event)
+    {
+        Log::info('[事件订阅] User logged in:', [
+            'user_id' => $event->user->id,
+        ]);
+    }
+
+    public function handleUserLogout($event)
+    {
+        Log::info('[事件订阅] User logged out:', [
+            'user_id' => $event->user->id,
+        ]);
+    }
+
+    public function subscribe(Dispatcher $events)
+    {
+        $events->listen(
+            UserLoginEvent::class,
+            'App\Listeners\UserEventSubscriber@handleUserLogin'
+        );
+
+        $events->listen(
+            UserLogoutEvent::class,
+            'App\Listeners\UserEventSubscriber@handleUserLogout'
+        );
+    }
+}
+```
+
+订阅者需要在 `EventServiceProvider` 的 `$subscribe` 中注册：
+
+```php
+use App\Listeners\UserEventSubscriber;
+
+protected $subscribe = [
+    UserEventSubscriber::class,
+];
+```
+
+普通监听器适合一个事件对应一个或多个独立动作；订阅者适合把同一业务域的一组事件集中放在一个类里。
+
+### 7. 同步监听和队列监听
+
+默认监听器是同步执行的。当前 `SendUserNotificationListener` 没有实现 `ShouldQueue`，所以触发事件后会立即执行监听器。
+
+```text
+创建用户
+    -> 触发 UserCreatedEvent
+    -> 立即执行 SendUserNotificationListener::handle()
+    -> 立即执行 JuBaoZanUserCreatedListener::handle()
+    -> 监听器执行完成后，请求继续往下执行
+```
+
+同步监听器不需要启动队列 worker。
+
+如果监听器里有发送短信、发送邮件、调用第三方接口等耗时操作，可以改成队列监听器：
+
+```php
+namespace App\Listeners;
+
+use App\Events\UserCreatedEvent;
+use Illuminate\Contracts\Queue\ShouldQueue;
+
+class SendUserNotificationListener implements ShouldQueue
+{
+    public function handle(UserCreatedEvent $event)
+    {
+        $user = $event->user;
+
+        // 发送短信、邮件或调用第三方接口
+    }
+}
+```
+
+队列监听器需要配置 `.env` 中的队列连接，并启动 worker：
+
+```env
+QUEUE_CONNECTION=redis
+```
+
+```bash
+php artisan queue:work
+```
+
+开发环境也可以使用同步队列：
+
+```env
+QUEUE_CONNECTION=sync
+```
+
+但 `sync` 会在当前请求内直接执行，不会异步进入后台 worker。
+
+### 8. 生成事件和监听器
+
+可以先在 `EventServiceProvider::$listen` 中写好映射关系，再执行：
+
+```bash
+php artisan event:generate
+```
+
+Laravel 会根据映射关系自动生成不存在的事件类和监听器类。
+
+也可以手动生成：
+
+```bash
+php artisan make:event UserCreatedEvent
+php artisan make:listener SendUserNotificationListener
+```
+
+如果监听器需要直接绑定某个事件，可以使用：
+
+```bash
+php artisan make:listener SendUserNotificationListener --event=UserCreatedEvent
+```
+
+### 9. 完整调用链路
+
+用户创建事件链路：
+
+```text
+User::create($data)
+    -> event(new UserCreatedEvent($user))
+    -> EventServiceProvider::$listen
+    -> SendUserNotificationListener::handle($event)
+    -> JuBaoZanUserCreatedListener::handle($event)
+```
+
+用户登录订阅链路：
+
+```text
+POST /admin/login
+    -> auth('admin')->attempt($credentials)
+    -> event(new UserLoginEvent(auth('admin')->user()))
+    -> EventServiceProvider::$subscribe
+    -> UserEventSubscriber::subscribe()
+    -> UserEventSubscriber::handleUserLogin($event)
+```
+
+### 10. 常见问题
+
+事件触发了但监听器没有执行：
+
+```text
+检查 EventServiceProvider::$listen 是否配置了事件和监听器映射
+检查 EventServiceProvider::$subscribe 是否注册了订阅者
+检查事件类和监听器类的 namespace 是否正确
+检查触发事件的代码是否真的执行到了
+```
+
+监听器拿不到用户：
+
+```text
+检查触发事件时是否传入了 $user
+检查事件构造方法是否把 $user 保存到了 public $user
+检查监听器 handle(UserCreatedEvent $event) 类型是否正确
+```
+
+队列监听器没有执行：
+
+```text
+检查监听器是否 implements ShouldQueue
+检查 .env 的 QUEUE_CONNECTION 是否正确
+检查是否启动了 php artisan queue:work
+检查 failed_jobs 表或日志中是否有失败记录
+```
+
+监听器中代码执行很慢：
+
+```text
+耗时操作不要放在同步监听器里
+把监听器改成 implements ShouldQueue
+确认队列 worker 已经运行
+```
+
 ## 后台认证、授权、控制器、模型与策略流程
 
 后台接口当前使用 Laravel 的 `admin` guard，`admin` guard 使用 JWT 驱动。完整流程可以分成两步：先认证拿 token，再携带 token 访问受保护接口并做权限判断。
