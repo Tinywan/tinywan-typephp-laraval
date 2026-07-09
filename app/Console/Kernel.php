@@ -54,8 +54,13 @@ class Kernel extends ConsoleKernel
         /** 调度队列任务 */
         $schedule->job(new HelloJob(1))->everyMinute();
 
-        /** 调度 Artisan 命令 */
-        $schedule->command('email:send tinywan 24')->everyMinute();
+        /** 调度 Artisan 命令 （php artisan email:send tinywan 24）*/
+        $schedule->command('email:send',[
+            'user' => 'tinywan',
+            'age' => 24,
+            'school' => '清华大学',
+            '--queue' => true,
+        ])->everyMinute()->onOneServer();
     }
 
     /**
