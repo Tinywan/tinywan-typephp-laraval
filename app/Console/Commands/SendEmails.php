@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class SendEmails extends Command
 {
@@ -37,9 +38,7 @@ class SendEmails extends Command
      */
     public function handle()
     {
-        //
-        var_dump($this->argument());
-        var_dump($this->option('queue'));
-        echo '执行控制台命令';
+        Log::info('SendEmails',['argument' => $this->argument(),'option' => $this->option('queue')]);
+        return ;
     }
 }
