@@ -12,15 +12,17 @@ class UserEventSubscriber
     /**
      * 处理用户登录事件。
      */
-    public function handleUserLogin($event) {
-        Log::info('[事件订阅] User logged out:', ['user_id' => $event->user->id]);
+    public function handleUserLogin($event)
+    {
+        Log::info('[事件订阅] User Login:', ['user_id' => $event->user->id]);
     }
 
     /**
      * 处理用户注销事件。
      */
-    public function handleUserLogout($event) {
-        Log::info('[事件订阅] User logged out:', ['user_id' => $event->user->id]);
+    public function handleUserLogout($event)
+    {
+        Log::info('[事件订阅] User Logout:', ['user_id' => $event->user->id]);
     }
 
     /**

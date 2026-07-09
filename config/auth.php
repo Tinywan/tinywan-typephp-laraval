@@ -51,6 +51,12 @@ return [
             'driver' => 'jwt',
             'provider' => 'admin_users',
         ],
+
+        'mini' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
+            'hash' => false,
+        ],
     ],
 
     /*

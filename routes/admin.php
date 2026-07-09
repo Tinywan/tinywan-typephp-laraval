@@ -10,8 +10,9 @@ use Illuminate\Support\Facades\Auth;
 Route::post('login', function (Request $request) {
     $credentials = $request->only('email', 'password');
 
-    $token = \auth('admin')->attempt($credentials);
-//    $token = Auth::guard('admin')->attempt($credentials);
+    $shop = $request->get('shop');
+//    $token = \auth('admin')->attempt($credentials);
+    $token = Auth::guard('admin')->attempt($credentials);
     if (!$token) {
         return response_json('账号或密码错误', 401, [], 401);
     }

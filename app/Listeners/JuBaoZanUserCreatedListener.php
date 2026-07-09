@@ -28,6 +28,7 @@ class JuBaoZanUserCreatedListener
     public function handle(UserCreatedEvent  $event)
     {
         $user = $event->user;
-        Log::info('[聚宝赞用户同步] 监听用户创建事件', ['user' => $user]);
+        $shop = $event->shop;
+        Log::info('[聚宝赞用户同步] 监听用户创建事件', ['user' => $user->nickname, 'shop' => $shop->name]);
     }
 }

@@ -38,8 +38,8 @@ $app->singleton(
 
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
-//    App\Exceptions\TinywanHandler::class
-    \App\Exceptions\Handler::class
+    App\Exceptions\TinywanHandler::class
+//    \App\Exceptions\Handler::class
 );
 
 /*
