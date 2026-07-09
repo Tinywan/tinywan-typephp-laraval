@@ -14,5 +14,6 @@ Route::prefix('v1')
     // 1.0 订单管理
     Route::prefix('order')->group(function () {
         Route::get('index', [OrderController::class, 'index']);
+        Route::get('userSync', [OrderController::class, 'userSync']);
     });
 });

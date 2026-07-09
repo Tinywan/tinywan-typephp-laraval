@@ -2,18 +2,18 @@
 
 namespace App\Listeners;
 
-use App\Services\DingTalkRobotNotifier;
+use App\Services\DingTalkRobotNotifierService;
 use Illuminate\Log\Events\MessageLogged;
 use Throwable;
 
 class SendDingTalkExceptionAlertListener
 {
     /**
-     * @var DingTalkRobotNotifier
+     * @var DingTalkRobotNotifierService
      */
     protected $notifier;
 
-    public function __construct(DingTalkRobotNotifier $notifier)
+    public function __construct(DingTalkRobotNotifierService $notifier)
     {
         $this->notifier = $notifier;
     }
@@ -31,7 +31,7 @@ class SendDingTalkExceptionAlertListener
         }
     }
 
-    protected function shouldSend(MessageLogged $event)
+    protected function shouldSend(MessageLogged $event): bool
     {
         $levels = config('services.dingtalk_exception.levels', [
             'error',

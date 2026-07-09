@@ -45,4 +45,13 @@ return [
         'timeout' => env('DINGTALK_EXCEPTION_TIMEOUT', 3),
     ],
 
+    'jubaozan' => [
+        'host' => env('JUBAOZAN_HOST', 'https://api.c3tech.cn'),
+        'client_id' => env('JUBAOZAN_CLIENT_ID', ''),
+        'client_secret' => env('JUBAOZAN_CLIENT_SECRET', ''),
+        'redirect_uri' => env('JUBAOZAN_REDIRECT_URI', 'https://shop.chutang66.com/jubaozan/authBack'),
+        'white_shop_ids' => explode(',', env('JUBAOZAN_WHITE_SHOP_IDS', '1')),
+        'webhook_url' => env('JUBAOZAN_WEBHOOK_URL', 'https://shop.chutang66.com/jubaozan/webhook'),
+    ],
+
 ];

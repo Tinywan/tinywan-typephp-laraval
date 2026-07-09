@@ -6,7 +6,7 @@ use Illuminate\Log\Events\MessageLogged;
 use RuntimeException;
 use Throwable;
 
-class DingTalkRobotNotifier
+class DingTalkRobotNotifierService
 {
     public function notify(MessageLogged $event)
     {

@@ -9,16 +9,18 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5|^8.0",
+        "ext-curl": "*",
         "ext-json": "*",
         "fideloper/proxy": "^4.4",
+        "guzzlehttp/guzzle": "^7.14",
         "laravel/framework": "^6.20.26",
         "laravel/tinker": "^2.5",
         "maatwebsite/excel": "3.1.19",
         "phpoffice/phpspreadsheet": "1.18",
-        "tymon/jwt-auth": "^1.0",
-        "ext-curl": "*"
+        "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^2.8",
         "facade/ignition": "^1.16.15",
         "fakerphp/faker": "^1.9.1",
         "mockery/mockery": "^1.0",
