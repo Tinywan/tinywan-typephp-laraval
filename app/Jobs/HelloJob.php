@@ -32,6 +32,6 @@ class HelloJob implements ShouldQueue
     public function handle()
     {
         // 执行作业
-        Log::info('执行作业....'.json_encode($this->userId, JSON_UNESCAPED_UNICODE));
+        Log::info('执行作业....',['userId' => $this->userId]);
     }
 }
