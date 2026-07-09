@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User\v1;
 
 use App\Events\UserCreatedEvent;
 use App\Http\Controllers\Controller;
+use App\Models\Shop;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -11,6 +12,7 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
+        /** @var Shop $shop */
         $shop = $request->get('shop');
         $openid = 'o7R6n4o0kq7BKTWhUPk5a-srKhxk';
         $user = User::query()
