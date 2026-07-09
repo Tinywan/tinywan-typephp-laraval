@@ -30,4 +30,19 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'dingtalk_exception' => [
+        'enabled' => env('DINGTALK_EXCEPTION_ENABLED', false),
+        'webhook' => env('DINGTALK_EXCEPTION_WEBHOOK'),
+        'prod_webhook' => env('DINGTALK_EXCEPTION_PROD_WEBHOOK'),
+        'secret' => env('DINGTALK_EXCEPTION_SECRET'),
+        'prod_secret' => env('DINGTALK_EXCEPTION_PROD_SECRET'),
+        'keyword' => env('DINGTALK_EXCEPTION_KEYWORD', 'Laravel异常报警'),
+        'project' => env('DINGTALK_EXCEPTION_PROJECT', env('DINGTALK_EXCEPTION_KEYWORD', env('APP_NAME', 'Laravel'))),
+        'levels' => array_filter(explode(',', env('DINGTALK_EXCEPTION_LEVELS', 'error,critical,alert,emergency'))),
+        'exception_only' => env('DINGTALK_EXCEPTION_ONLY', false),
+        'at_mobiles' => array_filter(explode(',', env('DINGTALK_EXCEPTION_AT_MOBILES', ''))),
+        'at_all' => env('DINGTALK_EXCEPTION_AT_ALL', false),
+        'timeout' => env('DINGTALK_EXCEPTION_TIMEOUT', 3),
+    ],
+
 ];

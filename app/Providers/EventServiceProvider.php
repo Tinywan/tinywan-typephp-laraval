@@ -4,11 +4,13 @@ namespace App\Providers;
 
 use App\Events\UserCreatedEvent;
 use App\Listeners\JuBaoZanUserCreatedListener;
+use App\Listeners\SendDingTalkExceptionAlertListener;
 use App\Listeners\SendUserNotificationListener;
 use App\Listeners\UserEventSubscriber;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Illuminate\Log\Events\MessageLogged;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -21,10 +23,13 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        MessageLogged::class => [
+            SendDingTalkExceptionAlertListener::class,
+        ],
         UserCreatedEvent::class => [
             SendUserNotificationListener::class,
             JuBaoZanUserCreatedListener::class
-        ]
+        ],
     ];
 
     /**

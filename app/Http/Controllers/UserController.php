@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Events\UserCreatedEvent;
 use App\Exports\UsersExport;
-use App\Jobs\HelloJob;
+use App\Jobs\JuBaoZan\SyncUserJob;
 use App\User;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
@@ -32,7 +33,10 @@ class UserController extends Controller
     public function queue()
     {
         $userId = 10086;
-        HelloJob::dispatch($userId)->delay(30);
+        $shopId = 10;
+        Log::error('同步用户开始 2026 ', ['userId' => $userId, 'shopId' => $shopId]);
+//        $a = 1/0;
+        SyncUserJob::dispatch($userId,$shopId)->delay(30);
         return json_encode(['code' => 0, 'msg' => 'success']);
     }
 

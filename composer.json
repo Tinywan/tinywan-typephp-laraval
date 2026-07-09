@@ -15,7 +15,8 @@
         "laravel/tinker": "^2.5",
         "maatwebsite/excel": "3.1.19",
         "phpoffice/phpspreadsheet": "1.18",
-        "tymon/jwt-auth": "^1.0"
+        "tymon/jwt-auth": "^1.0",
+        "ext-curl": "*"
     },
     "require-dev": {
         "facade/ignition": "^1.16.15",
