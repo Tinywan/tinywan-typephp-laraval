@@ -59,7 +59,6 @@ class Kernel extends ConsoleKernel
             'user' => 'tinywan',
             'age' => 24,
             'school' => '清华大学',
-            '--queue' => true,
         ])->everyMinute()->onOneServer();
     }
 
