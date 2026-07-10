@@ -15,5 +15,6 @@ Route::prefix('v1')
     Route::prefix('order')->group(function () {
         Route::get('index', [OrderController::class, 'index']);
         Route::get('userSync', [OrderController::class, 'userSync']);
+        Route::post('create', [OrderController::class, 'create']);
     });
 });

@@ -23,4 +23,9 @@ class OrderController extends Controller
             'shopId' => $user->shop_id,
         ]);
     }
+
+    public function create(Request $request)
+    {
+        return response_json('订单创建 userId = '.$request->user()->id);
+    }
 }
