@@ -778,3 +778,5 @@ token 有效但不是文章作者：
 请求头加 Accept: application/json
 或者启用 TinywanHandler 对 /admin/* 统一返回 JSON
 ```
+
+2026
