@@ -780,3 +780,75 @@ token 有效但不是文章作者：
 ```
 
 2026
+
+## 本地开发性能调优 & Xdebug 调试
+
+### 背景：请求很慢的排查
+
+`http://local.laravel.tinywan.com/user/v1/order/x` 曾出现每次请求约 **5.5s** 的问题。用 `curl` 拆解耗时定位到瓶颈：
+
+```bash
+curl -o /dev/null -s -w "DNS:%{time_namelookup}s TCP:%{time_connect}s TTFB:%{time_starttransfer}s 总:%{time_total}s\n" \
+  http://local.laravel.tinywan.com/user/v1/order/2
+```
+
+- DNS 0.0001s、TCP 0.0012s → **域名解析和 docker 网络都没问题**
+- TTFB 5.5s → 慢 100% 在服务端 PHP
+
+根因是 **Xdebug 扩展常驻加载**（运行时开销巨大，OPcache 也缓存不了它）。
+
+### 关键配置（已持久化到宿主机映射的 `D:\dnmp\conf\php\php.ini`）
+
+> 该项目由 openresty 反代到 `php72:9000`（见 `conf.d` 的 `fastcgi_pass`）。
+> 注意 `/usr/local/etc/php/conf.d/` 是**镜像内部**目录、不映射，改动 `docker-compose down` 重建会丢；
+> 只有 `php.ini` 是宿主机映射，配置应写在这里。
+
+**1) 卸载 Xdebug（默认，保持高速）** —— `[XDebug]` 段：
+```ini
+; 默认注释 = 不加载 = 快。需要调试时才取消注释
+;zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20170718/xdebug.so
+```
+
+**2) 开启 OPcache + 时间戳校验（本地开发甜点：快 且 改代码自动生效）** —— `[opcache]` 段：
+```ini
+opcache.enable=1
+opcache.enable_cli=0
+; 保留时间戳校验:改代码后自动重编译生效,无需 restart
+opcache.validate_timestamps=1
+; 每 2 秒最多校验一次(数值越大越少 stat、代码反映越慢)
+opcache.revalidate_freq=2
+```
+
+> ⚠️ 不要关闭 opcache。在 Windows 挂载盘上关掉 opcache,每个请求都要重新编译几百个文件,TTFB 会退回约 **2s**。
+> 关键是**卸载 Xdebug**(主因);opcache 保持开启即可兼顾速度与「改代码自动生效」。
+
+改完执行 `docker restart dnmp-php72` 生效。效果：TTFB 从 **5.5s → 约 15~85ms**。
+
+### 如何用 Xdebug 调试
+
+平时 Xdebug 不加载以保证速度，需要调试时「按需临时开」：
+
+**开启调试**
+1. 取消 `php.ini` 里 `zend_extension=.../xdebug.so` 那一行的注释
+2. `docker restart dnmp-php72`
+3. IDE 开始监听 9000 端口，打断点
+
+**结束调试**：重新注释该行 + `docker restart dnmp-php72`，恢复高速。
+
+**IDE 配置**（现有 `[XDebug]` 已配好 `remote_host=host.docker.internal` `remote_port=9000` `remote_autostart=Off`，Xdebug 2.x）：
+
+- VSCode（PHP Debug 插件）`launch.json`：
+  ```json
+  {
+    "name": "Listen for Xdebug",
+    "type": "php",
+    "request": "launch",
+    "port": 9000,
+    "pathMappings": {
+      "/var/www/chunfen/v6.laravel.tinywan.com": "D:/dnmp/www/chunfen/v6.laravel.tinywan.com"
+    }
+  }
+  ```
+- PhpStorm：Debug port 设 `9000`，Server 路径映射 `/var/www` → `D:\dnmp\www`。
+- 因 `remote_autostart=Off`，发起调试推荐用浏览器 **Xdebug helper** 扩展触发（带 `XDEBUG_SESSION` cookie），不影响不调试时的请求。
+- 若 IDE 监听不到：`remote_port=9000` 与 php-fpm 名义撞号，可把 php.ini 和 IDE 两边都改成 `9003`。

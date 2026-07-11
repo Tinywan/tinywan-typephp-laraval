@@ -59,10 +59,6 @@ class TinywanHandler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if (!$this->shouldReturnJson($request)) {
-            return parent::render($request, $exception);
-        }
-
         if ($exception instanceof ValidationException) {
             return response_json(
                 $exception->validator->errors()->first(),
@@ -100,14 +96,4 @@ class TinywanHandler extends ExceptionHandler
         return response_json($message, Response::HTTP_INTERNAL_SERVER_ERROR, [], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
-    /**
-     * Determine whether the exception should be rendered as JSON.
-     *
-     * @param Request $request
-     * @return bool
-     */
-    protected function shouldReturnJson(Request $request): bool
-    {
-        return $request->is('api/*') || $request->is('admin/*') || $request->expectsJson();
-    }
 }
