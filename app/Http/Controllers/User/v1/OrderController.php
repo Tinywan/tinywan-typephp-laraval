@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\OrderRequest;
 use App\Jobs\JuBaoZan\JuBaoZanSyncUserJob;
 use App\Models\Post;
+use App\Scopes\AgeScope;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -19,7 +20,12 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         $user = auth('mini')->user();
-        return response_json('订单列表 userId = '.$request->user()->id);
+        // $post = Post::where('status', 1)->get();
+        //$post = Post::status(1)->get();
+
+        // 取消名称为age的全局作用域
+        $post = Post::withoutGlobalScope(AgeScope::class)->get();
+        return response_json('订单列表',$post);
     }
 
     public function userSync(Request $request)
