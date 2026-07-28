@@ -29,6 +29,7 @@ Route::prefix('user')->group(function (){
     Route::get('/export', [UserController::class, 'export']);
     Route::get('/queue', [UserController::class, 'queue']);
     Route::get('/event', [UserController::class, 'event']);
+    Route::get('/sku', [UserController::class, 'sku']);
 });
 
 Route::resource('photos', 'PhotoController');

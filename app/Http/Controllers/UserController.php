@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\GoodsSkuEvent;
 use App\Events\UserCreatedEvent;
 use App\Exports\UsersExport;
 use App\Jobs\JuBaoZan\SyncUserJob;
+use App\Models\GoodsSkuModel;
 use App\User;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
@@ -47,5 +49,14 @@ class UserController extends Controller
 //        event(new \App\Events\UserCreatedEvent($user));
         event(new \App\Events\UserLoginEvent($user));
         return json_encode(['code' => 0, 'msg' => 'event success']);
+    }
+
+    public function sku()
+    {
+        $skuId = 480;
+        // SKU 库存更新
+        $goodsSukModel = GoodsSkuModel::query()->where('id',$skuId)->first();
+        event(new GoodsSkuEvent($goodsSukModel));
+        return json_encode(['code' => 0, 'msg' => 'success']);
     }
 }

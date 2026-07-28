@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use App\Events\GoodsSkuEvent;
 use App\Events\UserCreatedEvent;
 use App\Listeners\JuBaoZanUserCreatedListener;
 use App\Listeners\SendDingTalkExceptionAlertListener;
 use App\Listeners\SendUserNotificationListener;
+use App\Listeners\UpdateErpGoodsStockListener;
 use App\Listeners\UserEventSubscriber;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -29,6 +31,9 @@ class EventServiceProvider extends ServiceProvider
         UserCreatedEvent::class => [
             SendUserNotificationListener::class,
             JuBaoZanUserCreatedListener::class
+        ],
+        GoodsSkuEvent::class => [
+            UpdateErpGoodsStockListener::class,
         ],
     ];
 

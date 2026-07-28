@@ -91,6 +91,15 @@ return [
             'prefix_indexes' => true,
         ],
 
+        'mx_erp' => [
+            'driver' => 'mysql',
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => 'mx_erp',
+            'username' => env('DB_USERNAME'),
+            'password' => env('DB_PASSWORD'),
+        ],
+
     ],
 
     /*
