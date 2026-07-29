@@ -7,6 +7,7 @@ use App\Events\UserCreatedEvent;
 use App\Exports\UsersExport;
 use App\Jobs\JuBaoZan\SyncUserJob;
 use App\Models\GoodsSkuModel;
+use App\Models\Post;
 use App\User;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
@@ -53,6 +54,11 @@ class UserController extends Controller
 
     public function sku()
     {
+        // 通过名称检索，或使用名称、延迟和到达时间属性创建它...
+        $update1 = Post::query()->firstOrCreate(
+            ['author' => 'Tinyaiai'],
+            ['name' => '开源技术小栈', 'author' => 'Tinyaiai','status' => 1]
+        );
         $skuId = 480;
         // SKU 库存更新
         $goodsSukModel = GoodsSkuModel::query()->where('id',$skuId)->first();

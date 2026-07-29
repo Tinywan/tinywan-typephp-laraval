@@ -30,11 +30,11 @@ class UpdateErpGoodsStockListener implements ShouldQueue
      */
     public function handle(GoodsSkuEvent $event)
     {
-        Log::info('执行作业....');
+        Log::info('【ER商品库存更新】执行作业....',[$event->goodsSkuModel]);
         $goodsSkuModel = $event->goodsSkuModel;
         $goodsSkuModel->available_inventory = 480;
         $goodsSkuModel->actual_inventory = 480;
         $result = $goodsSkuModel->save();
-        Log::info('执行作业保存结果....'.json_encode($result,JSON_UNESCAPED_UNICODE));
+        Log::info('【ER商品库存更新】执行作业保存结果....'.json_encode($result,JSON_UNESCAPED_UNICODE));
     }
 }
