@@ -1,0 +1,16 @@
+HANDLE_ERROR: level=2, msg=PHP Request Startup: stat failed for D:\dnmp\www\TypePHP\tinywan-typephp-laraval\dist\.env, in D:\dnmp\www\TypePHP\tinywan-typephp-laraval\dist\vendor\laravel\framework\src\Illuminate\Foundation\Console\ServeCommand.php:159
+HANDLE_ERROR: level=2, msg=PHP Request Startup: Failed to open stream: No such file or directory, in D:\dnmp\www\TypePHP\tinywan-typephp-laraval\dist\vendor\composer\ClassLoader.php:576
+KERNEL EXCEPTION: ErrorException: PHP Request Startup: Failed to open stream: No such file or directory
+#0 D:\dnmp\www\TypePHP\tinywan-typephp-laraval\dist\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(264): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'PHP Request Sta...', 'D:\\dnmp\\www\\Typ...', 576)
+#1 D:\dnmp\www\TypePHP\tinywan-typephp-laraval\dist\vendor\composer\ClassLoader.php(576): Illuminate\Foundation\Bootstrap\HandleExceptions->{closure:Illuminate\Foundation\Bootstrap\HandleExceptions::forwardsTo():263}(2, 'PHP Request Sta...', 'D:\\dnmp\\www\\Typ...', 576)
+#2 D:\dnmp\www\TypePHP\tinywan-typephp-laraval\dist\vendor\composer\ClassLoader.php(576): include('D:\\dnmp\\www\\Typ...')
+#3 D:\dnmp\www\TypePHP\tinywan-typephp-laraval\dist\vendor\composer\ClassLoader.php(427): {closure:Composer\Autoload\ClassLoader::initializeIncludeClosure():575}('D:\\dnmp\\www\\Typ...')
+#4 D:\dnmp\www\TypePHP\tinywan-typephp-laraval\dist\vendor\symfony\console\Application.php(1149): Composer\Autoload\ClassLoader->loadClass('Symfony\\Compone...')
+#5 D:\dnmp\www\TypePHP\tinywan-typephp-laraval\dist\vendor\symfony\console\Application.php(379): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Foundation\Console\ServeCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#6 D:\dnmp\www\TypePHP\tinywan-typephp-laraval\dist\vendor\symfony\console\Application.php(218): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#7 D:\dnmp\www\TypePHP\tinywan-typephp-laraval\dist\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(203): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#8 D:\dnmp\www\TypePHP\tinywan-typephp-laraval\dist\vendor\laravel\framework\src\Illuminate\Foundation\Application.php(1253): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 [internal function]: Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#10 D:\dnmp\www\TypePHP\tinywan-typephp-laraval\main.php(6): main()
+#11 {main}
+HANDLE_ERROR: level=2, msg=PHP Request Startup: Failed to open stream: No such file or directory, in D:\dnmp\www\TypePHP\tinywan-typephp-laraval\dist\vendor\composer\ClassLoader.php:576

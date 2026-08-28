@@ -1,0 +1,147 @@
+BOOTSTRAPPING: Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables
+BOOTSTRAPPED: Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables
+BOOTSTRAPPING: Illuminate\Foundation\Bootstrap\LoadConfiguration
+BOOTSTRAPPED: Illuminate\Foundation\Bootstrap\LoadConfiguration
+BOOTSTRAPPING: Illuminate\Foundation\Bootstrap\HandleExceptions
+BOOTSTRAPPED: Illuminate\Foundation\Bootstrap\HandleExceptions
+BOOTSTRAPPING: Illuminate\Foundation\Bootstrap\RegisterFacades
+BOOTSTRAPPED: Illuminate\Foundation\Bootstrap\RegisterFacades
+BOOTSTRAPPING: Illuminate\Foundation\Bootstrap\RegisterProviders
+REG_CONFIGURED_PROVIDERS START
+PARTITION DONE
+PACKAGE MANIFEST DONE
+PROVIDER_REPO LOAD MANIFEST START
+REGISTER EAGER: Illuminate\Auth\AuthServiceProvider
+REGISTERED EAGER: Illuminate\Auth\AuthServiceProvider
+REGISTER EAGER: Illuminate\Cookie\CookieServiceProvider
+REGISTERED EAGER: Illuminate\Cookie\CookieServiceProvider
+REGISTER EAGER: Illuminate\Database\DatabaseServiceProvider
+REGISTERED EAGER: Illuminate\Database\DatabaseServiceProvider
+REGISTER EAGER: Illuminate\Encryption\EncryptionServiceProvider
+REGISTERED EAGER: Illuminate\Encryption\EncryptionServiceProvider
+REGISTER EAGER: Illuminate\Filesystem\FilesystemServiceProvider
+REGISTERED EAGER: Illuminate\Filesystem\FilesystemServiceProvider
+REGISTER EAGER: Illuminate\Foundation\Providers\FoundationServiceProvider
+REGISTERED EAGER: Illuminate\Foundation\Providers\FoundationServiceProvider
+REGISTER EAGER: Illuminate\Notifications\NotificationServiceProvider
+REGISTERED EAGER: Illuminate\Notifications\NotificationServiceProvider
+REGISTER EAGER: Illuminate\Pagination\PaginationServiceProvider
+REGISTERED EAGER: Illuminate\Pagination\PaginationServiceProvider
+REGISTER EAGER: Illuminate\Session\SessionServiceProvider
+REGISTERED EAGER: Illuminate\Session\SessionServiceProvider
+REGISTER EAGER: Illuminate\View\ViewServiceProvider
+REGISTERED EAGER: Illuminate\View\ViewServiceProvider
+REGISTER EAGER: Laravel\Pail\PailServiceProvider
+REGISTERED EAGER: Laravel\Pail\PailServiceProvider
+REGISTER EAGER: Laravel\Pao\Laravel\ServiceProvider
+REGISTERED EAGER: Laravel\Pao\Laravel\ServiceProvider
+REGISTER EAGER: Carbon\Laravel\ServiceProvider
+REGISTERED EAGER: Carbon\Laravel\ServiceProvider
+REGISTER EAGER: NunoMaduro\Collision\Adapters\Laravel\CollisionServiceProvider
+REGISTERED EAGER: NunoMaduro\Collision\Adapters\Laravel\CollisionServiceProvider
+REGISTER EAGER: Termwind\Laravel\TermwindServiceProvider
+REGISTERED EAGER: Termwind\Laravel\TermwindServiceProvider
+REGISTER EAGER: App\Providers\AppServiceProvider
+REGISTERED EAGER: App\Providers\AppServiceProvider
+PROVIDER REPOSITORY LOAD DONE
+BOOTSTRAPPED: Illuminate\Foundation\Bootstrap\RegisterProviders
+BOOTSTRAPPING: Illuminate\Foundation\Bootstrap\BootProviders
+BOOTSTRAPPED: Illuminate\Foundation\Bootstrap\BootProviders
+BOOTSTRAPPING: Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables
+BOOTSTRAPPED: Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables
+BOOTSTRAPPING: Illuminate\Foundation\Bootstrap\LoadConfiguration
+BOOTSTRAPPED: Illuminate\Foundation\Bootstrap\LoadConfiguration
+BOOTSTRAPPING: Illuminate\Foundation\Bootstrap\HandleExceptions
+BOOTSTRAPPED: Illuminate\Foundation\Bootstrap\HandleExceptions
+BOOTSTRAPPING: Illuminate\Foundation\Bootstrap\RegisterFacades
+BOOTSTRAPPED: Illuminate\Foundation\Bootstrap\RegisterFacades
+BOOTSTRAPPING: Illuminate\Foundation\Bootstrap\RegisterProviders
+REG_CONFIGURED_PROVIDERS START
+PARTITION DONE
+PACKAGE MANIFEST DONE
+PROVIDER_REPO LOAD MANIFEST START
+REGISTER EAGER: Illuminate\Auth\AuthServiceProvider
+REGISTERED EAGER: Illuminate\Auth\AuthServiceProvider
+REGISTER EAGER: Illuminate\Cookie\CookieServiceProvider
+REGISTERED EAGER: Illuminate\Cookie\CookieServiceProvider
+REGISTER EAGER: Illuminate\Database\DatabaseServiceProvider
+REGISTERED EAGER: Illuminate\Database\DatabaseServiceProvider
+REGISTER EAGER: Illuminate\Encryption\EncryptionServiceProvider
+REGISTERED EAGER: Illuminate\Encryption\EncryptionServiceProvider
+REGISTER EAGER: Illuminate\Filesystem\FilesystemServiceProvider
+REGISTERED EAGER: Illuminate\Filesystem\FilesystemServiceProvider
+REGISTER EAGER: Illuminate\Foundation\Providers\FoundationServiceProvider
+REGISTERED EAGER: Illuminate\Foundation\Providers\FoundationServiceProvider
+REGISTER EAGER: Illuminate\Notifications\NotificationServiceProvider
+REGISTERED EAGER: Illuminate\Notifications\NotificationServiceProvider
+REGISTER EAGER: Illuminate\Pagination\PaginationServiceProvider
+REGISTERED EAGER: Illuminate\Pagination\PaginationServiceProvider
+REGISTER EAGER: Illuminate\Session\SessionServiceProvider
+REGISTERED EAGER: Illuminate\Session\SessionServiceProvider
+REGISTER EAGER: Illuminate\View\ViewServiceProvider
+REGISTERED EAGER: Illuminate\View\ViewServiceProvider
+REGISTER EAGER: Laravel\Pail\PailServiceProvider
+REGISTERED EAGER: Laravel\Pail\PailServiceProvider
+REGISTER EAGER: Laravel\Pao\Laravel\ServiceProvider
+REGISTERED EAGER: Laravel\Pao\Laravel\ServiceProvider
+REGISTER EAGER: Carbon\Laravel\ServiceProvider
+REGISTERED EAGER: Carbon\Laravel\ServiceProvider
+REGISTER EAGER: NunoMaduro\Collision\Adapters\Laravel\CollisionServiceProvider
+REGISTERED EAGER: NunoMaduro\Collision\Adapters\Laravel\CollisionServiceProvider
+REGISTER EAGER: Termwind\Laravel\TermwindServiceProvider
+REGISTERED EAGER: Termwind\Laravel\TermwindServiceProvider
+REGISTER EAGER: App\Providers\AppServiceProvider
+REGISTERED EAGER: App\Providers\AppServiceProvider
+PROVIDER REPOSITORY LOAD DONE
+BOOTSTRAPPED: Illuminate\Foundation\Bootstrap\RegisterProviders
+BOOTSTRAPPING: Illuminate\Foundation\Bootstrap\BootProviders
+BOOTSTRAPPED: Illuminate\Foundation\Bootstrap\BootProviders
+BOOTSTRAPPING: Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables
+BOOTSTRAPPED: Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables
+BOOTSTRAPPING: Illuminate\Foundation\Bootstrap\LoadConfiguration
+BOOTSTRAPPED: Illuminate\Foundation\Bootstrap\LoadConfiguration
+BOOTSTRAPPING: Illuminate\Foundation\Bootstrap\HandleExceptions
+BOOTSTRAPPED: Illuminate\Foundation\Bootstrap\HandleExceptions
+BOOTSTRAPPING: Illuminate\Foundation\Bootstrap\RegisterFacades
+BOOTSTRAPPED: Illuminate\Foundation\Bootstrap\RegisterFacades
+BOOTSTRAPPING: Illuminate\Foundation\Bootstrap\RegisterProviders
+REG_CONFIGURED_PROVIDERS START
+PARTITION DONE
+PACKAGE MANIFEST DONE
+PROVIDER_REPO LOAD MANIFEST START
+REGISTER EAGER: Illuminate\Auth\AuthServiceProvider
+REGISTERED EAGER: Illuminate\Auth\AuthServiceProvider
+REGISTER EAGER: Illuminate\Cookie\CookieServiceProvider
+REGISTERED EAGER: Illuminate\Cookie\CookieServiceProvider
+REGISTER EAGER: Illuminate\Database\DatabaseServiceProvider
+REGISTERED EAGER: Illuminate\Database\DatabaseServiceProvider
+REGISTER EAGER: Illuminate\Encryption\EncryptionServiceProvider
+REGISTERED EAGER: Illuminate\Encryption\EncryptionServiceProvider
+REGISTER EAGER: Illuminate\Filesystem\FilesystemServiceProvider
+REGISTERED EAGER: Illuminate\Filesystem\FilesystemServiceProvider
+REGISTER EAGER: Illuminate\Foundation\Providers\FoundationServiceProvider
+REGISTERED EAGER: Illuminate\Foundation\Providers\FoundationServiceProvider
+REGISTER EAGER: Illuminate\Notifications\NotificationServiceProvider
+REGISTERED EAGER: Illuminate\Notifications\NotificationServiceProvider
+REGISTER EAGER: Illuminate\Pagination\PaginationServiceProvider
+REGISTERED EAGER: Illuminate\Pagination\PaginationServiceProvider
+REGISTER EAGER: Illuminate\Session\SessionServiceProvider
+REGISTERED EAGER: Illuminate\Session\SessionServiceProvider
+REGISTER EAGER: Illuminate\View\ViewServiceProvider
+REGISTERED EAGER: Illuminate\View\ViewServiceProvider
+REGISTER EAGER: Laravel\Pail\PailServiceProvider
+REGISTERED EAGER: Laravel\Pail\PailServiceProvider
+REGISTER EAGER: Laravel\Pao\Laravel\ServiceProvider
+REGISTERED EAGER: Laravel\Pao\Laravel\ServiceProvider
+REGISTER EAGER: Carbon\Laravel\ServiceProvider
+REGISTERED EAGER: Carbon\Laravel\ServiceProvider
+REGISTER EAGER: NunoMaduro\Collision\Adapters\Laravel\CollisionServiceProvider
+REGISTERED EAGER: NunoMaduro\Collision\Adapters\Laravel\CollisionServiceProvider
+REGISTER EAGER: Termwind\Laravel\TermwindServiceProvider
+REGISTERED EAGER: Termwind\Laravel\TermwindServiceProvider
+REGISTER EAGER: App\Providers\AppServiceProvider
+REGISTERED EAGER: App\Providers\AppServiceProvider
+PROVIDER REPOSITORY LOAD DONE
+BOOTSTRAPPED: Illuminate\Foundation\Bootstrap\RegisterProviders
+BOOTSTRAPPING: Illuminate\Foundation\Bootstrap\BootProviders
+BOOTSTRAPPED: Illuminate\Foundation\Bootstrap\BootProviders
