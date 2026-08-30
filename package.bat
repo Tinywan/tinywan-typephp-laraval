@@ -36,7 +36,6 @@ if exist "%~dp0public" xcopy /y /e /i /q "%~dp0public" "%~dp0dist\public" >nul
 if exist "%~dp0resources" xcopy /y /e /i /q "%~dp0resources" "%~dp0dist\resources" >nul
 if exist "%~dp0routes" xcopy /y /e /i /q "%~dp0routes" "%~dp0dist\routes" >nul
 if exist "%~dp0storage" xcopy /y /e /i /q "%~dp0storage" "%~dp0dist\storage" >nul
-if exist "%~dp0vendor" xcopy /y /e /i /q "%~dp0vendor" "%~dp0dist\vendor" >nul
 if exist "%~dp0.env" copy /y "%~dp0.env" "%~dp0dist\.env" >nul
 if exist "%~dp0composer.json" copy /y "%~dp0composer.json" "%~dp0dist\composer.json" >nul
 if exist "%~dp0composer.lock" copy /y "%~dp0composer.lock" "%~dp0dist\composer.lock" >nul

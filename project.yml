@@ -33,20 +33,29 @@ sources:
   - vendor/phpoption/phpoption/src
   - vendor/graham-campbell/result-type/src
   - vendor/vlucas/phpdotenv/src
+  - vendor/symfony/finder
+  - vendor/symfony/process
+  - vendor/symfony/polyfill-ctype/Ctype.php
+  - vendor/symfony/polyfill-intl-grapheme/Grapheme.php
+  - vendor/symfony/polyfill-intl-normalizer/Normalizer.php
+  - vendor/symfony/polyfill-mbstring/Mbstring.php
+  - vendor/symfony/service-contracts
+  - vendor/symfony/event-dispatcher-contracts
+  - vendor/symfony/event-dispatcher
+  - vendor/symfony/translation-contracts
+  - vendor/symfony/console
+  - vendor/symfony/http-foundation
+  - vendor/laravel/framework/src/Illuminate/Contracts
   - vendor/laravel/framework/src/Illuminate/Conditionable
-  - vendor/laravel/framework/src/Illuminate/Support/HigherOrderTapProxy.php
   - vendor/laravel/framework/src/Illuminate/Config
   - vendor/laravel/framework/src/Illuminate/Pipeline
-  - vendor/laravel/framework/src/Illuminate/Contracts
   - vendor/laravel/framework/src/Illuminate/Reflection/Traits/ReflectsClosures.php
   - vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php
-  - vendor/laravel/framework/src/Illuminate/Support/Traits
-  - vendor/laravel/framework/src/Illuminate/Collections/functions.php
-  - vendor/laravel/framework/src/Illuminate/Filesystem/functions.php
+  - vendor/laravel/framework/src/Illuminate/Support
+  - vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php
+  - vendor/laravel/framework/src/Illuminate/Filesystem/FilesystemServiceProvider.php
   - vendor/laravel/framework/src/Illuminate/Queue/Attributes
   - vendor/laravel/framework/src/Illuminate/Queue/QueueRoutes.php
-  - vendor/laravel/framework/src/Illuminate/Support/Queue/Concerns/ResolvesQueueRoutes.php
-  - vendor/laravel/framework/src/Illuminate/Support/ServiceProvider.php
   - vendor/laravel/framework/src/Illuminate/Container
   - vendor/laravel/framework/src/Illuminate/Events
   - app
@@ -65,6 +74,22 @@ ignore:
   - vendor/laravel/framework/src/Illuminate/Events/functions.php
   - vendor/laravel/framework/src/Illuminate/Events/CallQueuedListener.php
   - vendor/laravel/framework/src/Illuminate/Events/QueuedClosureListener.php
+  - vendor/laravel/framework/src/Illuminate/Support/functions.php
+  - vendor/laravel/framework/src/Illuminate/Support/helpers.php
+  - vendor/laravel/framework/src/Illuminate/Support/Testing
+  - vendor/laravel/framework/src/Illuminate/Support/Carbon.php
+  - vendor/symfony/console/Resources
+  - vendor/symfony/console/Tester
+  - vendor/symfony/console/CI
+  - vendor/symfony/console/ConsoleBundle.php
+  - vendor/symfony/console/DependencyInjection
+  - vendor/symfony/console/DataCollector
+  - vendor/symfony/event-dispatcher/Debug
+  - vendor/symfony/event-dispatcher/DependencyInjection
+  - vendor/symfony/http-foundation/Test
+  - vendor/symfony/service-contracts/Test
+  - vendor/symfony/event-dispatcher-contracts/Test
+  - vendor/symfony/translation-contracts/Test
 
 output: build/laravel-artisan
 mode: bin

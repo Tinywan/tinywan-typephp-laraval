@@ -1,0 +1,107 @@
+name: Build TypePHP Laravel (Linux)
+
+on:
+  push:
+    branches:
+      - master
+      - main
+    tags:
+      - 'v*'
+  pull_request:
+    branches:
+      - master
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  COMPOSER_NO_INTERACTION: 1
+  COMPOSER_PROCESS_TIMEOUT: 0
+
+jobs:
+  build-linux:
+    name: Build on Ubuntu Linux (x86_64)
+    runs-on: ubuntu-22.04
+
+    env:
+      PHPX_HOME: ${{ github.workspace }}/vendor/swoole/phpx
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # ---------------- Setup PHP 8.4 (ZTS & Embed 支持) ----------------
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: zip, curl, mbstring, openssl, pdo, pdo_sqlite, sqlite3, fileinfo, tokenizer
+          coverage: none
+          ini-values: precision=17, memory_limit=4G, error_reporting=E_ERROR|E_WARNING, display_errors=1, display_startup_errors=1, log_errors=0
+          tools: composer:v2
+        env:
+          fail-fast: true
+          phpts: ts
+          update: true
+
+      # ---------------- Linux 构建环境准备 ----------------
+      - name: Install Linux native build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes build-essential cmake libgmp-dev libmpfr-dev pkg-config python3-dev patchelf
+
+      - name: Patch php_hash.h for C++ compatibility
+        shell: bash
+        run: |
+          PHP_INC="$(php-config --include-dir 2>/dev/null || echo '')"
+          echo "PHP include dir: $PHP_INC"
+          if [ -n "$PHP_INC" ]; then
+            sudo find "$PHP_INC" /usr/include -name "php_hash.h" -exec sed -i 's/static inline const php_hash_ops\* php_hash_fetch_ops/static inline const struct _php_hash_ops\* php_hash_fetch_ops/g' {} + 2>/dev/null || true
+          fi
+
+      - name: Configure Linux ZTS PHP embed library
+        shell: bash
+        run: |
+          php_home="$(php-config --prefix)"
+          embed_library="${php_home}/lib/libphp.so"
+          test -x "${php_home}/bin/php-config"
+          test -f "${embed_library}"
+          echo "PHP_HOME=${php_home}" >> "${GITHUB_ENV}"
+          echo "Using ZTS PHP $(php-config --version) embed library: ${embed_library}"
+
+      # ---------------- 安装 Composer 依赖 ----------------
+      - name: Install Composer Dependencies
+        run: composer install --prefer-dist --no-progress
+
+      # ---------------- Linux 编译与打包 ----------------
+      - name: Build and Package on Linux
+        shell: bash
+        run: |
+          chmod +x package.sh
+          ./package.sh
+          echo "=== Verify dynamic library dependencies (ldd) ==="
+          ldd dist/laravel-artisan.bin || true
+          ldd dist/libphpx.so || true
+          echo "=== Linux Smoke Test: running dist/run.sh --version ==="
+          ./dist/run.sh --version || true
+          echo "=== Linux Smoke Test: running dist/run.sh list ==="
+          ./dist/run.sh list || true
+          tar -czvf typephp-laravel-linux-x64.tar.gz -C dist .
+
+      # ---------------- 上传构建产物 (Artifacts) ----------------
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: typephp-laravel-linux-x64
+          path: typephp-laravel-linux-x64.tar.gz
+
+      # ---------------- 如果是打 Tag 触发，发布 GitHub Release ----------------
+      - name: Create Release and Upload Asset
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: typephp-laravel-linux-x64.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,98 @@
+name: laravel-artisan
+
+sources:
+  - main.php
+  - vendor/psr
+  - vendor/voku/portable-ascii/src/voku/helper/ASCII.php
+  - vendor/tijsverkoyen/css-to-inline-styles/src
+  - vendor/monolog/monolog/src/Monolog/Level.php
+  - vendor/monolog/monolog/src/Monolog/Logger.php
+  - vendor/monolog/monolog/src/Monolog/LogRecord.php
+  - vendor/monolog/monolog/src/Monolog/ResettableInterface.php
+  - vendor/monolog/monolog/src/Monolog/JsonSerializableDateTimeImmutable.php
+  - vendor/monolog/monolog/src/Monolog/ErrorHandler.php
+  - vendor/monolog/monolog/src/Monolog/Registry.php
+  - vendor/monolog/monolog/src/Monolog/Utils.php
+  - vendor/monolog/monolog/src/Monolog/Formatter/FormatterInterface.php
+  - vendor/monolog/monolog/src/Monolog/Formatter/NormalizerFormatter.php
+  - vendor/monolog/monolog/src/Monolog/Formatter/LineFormatter.php
+  - vendor/monolog/monolog/src/Monolog/Formatter/JsonFormatter.php
+  - vendor/monolog/monolog/src/Monolog/Handler/HandlerInterface.php
+  - vendor/monolog/monolog/src/Monolog/Handler/Handler.php
+  - vendor/monolog/monolog/src/Monolog/Handler/AbstractHandler.php
+  - vendor/monolog/monolog/src/Monolog/Handler/AbstractProcessingHandler.php
+  - vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php
+  - vendor/monolog/monolog/src/Monolog/Handler/RotatingFileHandler.php
+  - vendor/monolog/monolog/src/Monolog/Handler/ErrorLogHandler.php
+  - vendor/monolog/monolog/src/Monolog/Handler/NullHandler.php
+  - vendor/monolog/monolog/src/Monolog/Handler/FormattableHandlerInterface.php
+  - vendor/monolog/monolog/src/Monolog/Handler/FormattableHandlerTrait.php
+  - vendor/monolog/monolog/src/Monolog/Handler/ProcessableHandlerInterface.php
+  - vendor/monolog/monolog/src/Monolog/Handler/ProcessableHandlerTrait.php
+  - vendor/monolog/monolog/src/Monolog/Processor
+  - vendor/phpoption/phpoption/src
+  - vendor/graham-campbell/result-type/src
+  - vendor/vlucas/phpdotenv/src
+  - vendor/symfony/finder
+  - vendor/symfony/process
+  - vendor/symfony/polyfill-ctype/Ctype.php
+  - vendor/symfony/polyfill-intl-grapheme/Grapheme.php
+  - vendor/symfony/polyfill-intl-normalizer/Normalizer.php
+  - vendor/symfony/polyfill-mbstring/Mbstring.php
+  - vendor/symfony/service-contracts
+  - vendor/symfony/event-dispatcher-contracts
+  - vendor/symfony/event-dispatcher
+  - vendor/symfony/translation-contracts
+  - vendor/symfony/console
+  - vendor/symfony/http-foundation
+  - vendor/laravel/framework/src/Illuminate/Contracts
+  - vendor/laravel/framework/src/Illuminate/Conditionable
+  - vendor/laravel/framework/src/Illuminate/Config
+  - vendor/laravel/framework/src/Illuminate/Pipeline
+  - vendor/laravel/framework/src/Illuminate/Reflection/Traits/ReflectsClosures.php
+  - vendor/laravel/framework/src/Illuminate/Macroable/Traits/Macroable.php
+  - vendor/laravel/framework/src/Illuminate/Support
+  - vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php
+  - vendor/laravel/framework/src/Illuminate/Filesystem/FilesystemServiceProvider.php
+  - vendor/laravel/framework/src/Illuminate/Queue/Attributes
+  - vendor/laravel/framework/src/Illuminate/Queue/QueueRoutes.php
+  - vendor/laravel/framework/src/Illuminate/Container
+  - vendor/laravel/framework/src/Illuminate/Events
+  - app
+
+ignore:
+  - app/Models
+  - app/Providers
+  - config
+  - public
+  - storage
+  - bootstrap
+  - database
+  - resources
+  - routes
+  - tests
+  - vendor/laravel/framework/src/Illuminate/Events/functions.php
+  - vendor/laravel/framework/src/Illuminate/Events/CallQueuedListener.php
+  - vendor/laravel/framework/src/Illuminate/Events/QueuedClosureListener.php
+  - vendor/laravel/framework/src/Illuminate/Support/functions.php
+  - vendor/laravel/framework/src/Illuminate/Support/helpers.php
+  - vendor/laravel/framework/src/Illuminate/Support/Testing
+  - vendor/laravel/framework/src/Illuminate/Support/Carbon.php
+  - vendor/symfony/console/Resources
+  - vendor/symfony/console/Tester
+  - vendor/symfony/console/CI
+  - vendor/symfony/console/ConsoleBundle.php
+  - vendor/symfony/console/DependencyInjection
+  - vendor/symfony/console/DataCollector
+  - vendor/symfony/event-dispatcher/Debug
+  - vendor/symfony/event-dispatcher/DependencyInjection
+  - vendor/symfony/http-foundation/Test
+  - vendor/symfony/service-contracts/Test
+  - vendor/symfony/event-dispatcher-contracts/Test
+  - vendor/symfony/translation-contracts/Test
+
+output: build/laravel-artisan
+mode: bin
+optimize: 2
+job: 1
+debug: false
