@@ -7,8 +7,12 @@ cd "$SCRIPT_DIR"
 echo "[INFO] Step 1: Compiling laravel-artisan with TypePHP..."
 if [ -f "./vendor/bin/tpc.php" ]; then
     TPC_BIN="./vendor/bin/tpc.php"
+elif [ -f "./vendor/swoole/typephp/bin/tpc.php" ]; then
+    TPC_BIN="./vendor/swoole/typephp/bin/tpc.php"
 elif command -v tpc &> /dev/null; then
     TPC_BIN="tpc"
+elif [ -n "$PHP_HOME" ] && [ -f "$PHP_HOME/bin/tpc" ]; then
+    TPC_BIN="$PHP_HOME/bin/tpc"
 else
     echo "[ERROR] tpc compiler not found! Make sure swoole/typephp is installed or tpc is in PATH."
     exit 1
